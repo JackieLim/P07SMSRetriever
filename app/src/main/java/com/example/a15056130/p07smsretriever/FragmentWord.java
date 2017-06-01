@@ -64,15 +64,22 @@ public class FragmentWord extends Fragment {
                 //  query the content provider
                 ContentResolver cr = getActivity().getContentResolver();
 
-                String input = etWord.getText().toString();
-                String[] word = input.split(" ");
+                String[] input = etWord.getText().toString().split(" ");
 
-                String filter="body LIKE ? or body Like ?";
+                String filter="body LIKE ? ";
+                for(int i = 0; i<input.length; i++){
+                    input[i] = "%"+ input[i]+"%";
+                    if(i!=0){
+                        filter += (" or body LIKE ?");
+                    }
+                }
 
-                String[] filterArgs = {"%" + word[0] +"%","%" + word[1]+ "%"};
+
+
+                //String[] filterArgs = {"%" + word[0] +"%","%" + word[1]+ "%","%" + word[2]+ "%"};
 
                 // Fetch SMS Message from Built-in Content Provider
-                Cursor cursor = cr.query(uri, reqCols, filter, filterArgs, null);
+                Cursor cursor = cr.query(uri, reqCols, filter, input, null);
                 String smsBody = "";
                 if (cursor.moveToFirst()) {
                     do {
