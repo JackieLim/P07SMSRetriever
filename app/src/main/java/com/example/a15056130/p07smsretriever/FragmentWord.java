@@ -3,6 +3,7 @@ package com.example.a15056130.p07smsretriever;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -27,7 +28,7 @@ public class FragmentWord extends Fragment {
 
     EditText etWord;
     TextView tvSMS2;
-    Button btnRetrieveSMS2;
+    Button btnRetrieveSMS2, btnEmail;
 
 //    public FragmentWord() {
 //        // Required empty public constructor
@@ -42,6 +43,29 @@ public class FragmentWord extends Fragment {
         etWord = (EditText)view.findViewById(R.id.etword);
         tvSMS2 = (TextView) view.findViewById(R.id.tvSMS2);
         btnRetrieveSMS2 = (Button) view.findViewById(R.id.btnRetrieveSMS2);
+        btnEmail = (Button)view.findViewById(R.id.email);
+        btnEmail.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                String to = "jackielim8695@gmail.com";
+                String subject = "subject";
+                String message = tvSMS2.getText().toString();
+
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
+                //email.putExtra(Intent.EXTRA_CC, new String[]{ to});
+                //email.putExtra(Intent.EXTRA_BCC, new String[]{to});
+                email.putExtra(Intent.EXTRA_SUBJECT, subject);
+                email.putExtra(Intent.EXTRA_TEXT, message);
+
+                //need this to prompts email client only
+                email.setType("message/rfc822");
+                startActivity(Intent.createChooser(email, "Choose an Email client :"));
+
+            }
+        });
 
         btnRetrieveSMS2.setOnClickListener(new View.OnClickListener() {
             @Override
