@@ -31,16 +31,18 @@
             android:layout_height="wrap_content"
             android:text="Retrieve SMS" />
 
-        <TextView
-            android:id="@+id/tvSMS2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <Button
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email"/>
+        
+        <TextView
+            android:id="@+id/tvSMS2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
 
     </LinearLayout>
 </ScrollView>
